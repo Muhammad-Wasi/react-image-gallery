@@ -25,6 +25,8 @@ const styles = {
     minHeight: '364px'
   },
   gridList: {
+    justifyContent: 'center',
+    alignSelf: 'center',
     width: '80%',
     overflowY: 'auto',
   },
