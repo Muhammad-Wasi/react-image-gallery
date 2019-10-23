@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Lightbox from 'react-image-lightbox';
 import DeleteSVG from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
@@ -14,9 +14,9 @@ class ImageLightBox extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     let photos = [];
-    nextProps.photos.map(function(photo){
+    nextProps.photos.map((photo) => {
       photos.push(photo.dataUri);
     });
     this.setState({
@@ -27,29 +27,30 @@ class ImageLightBox extends Component {
 
 
   render() {
-    const { photoIndex } = this.state;
+    const { photoIndex, photos } = this.state;
+    const { isOpen, onPictureDelete } = this.props
     return (
       <div>
-        {this.props.isOpen && this.state.photos.length>0 && (
+        {isOpen && length > 0 && (
           <div>
             <Lightbox
-              mainSrc={this.state.photos[photoIndex]}
-              nextSrc={this.state.photos[(photoIndex + 1) % this.state.photos.length]}
-              prevSrc={this.state.photos[(photoIndex + this.state.photos.length - 1) % this.state.photos.length]}
+              mainSrc={photos[photoIndex]}
+              nextSrc={photos[(photoIndex + 1) % photos.length]}
+              prevSrc={photos[(photoIndex + photos.length - 1) % photos.length]}
               onCloseRequest={() => this.props.onClose()}
               onMovePrevRequest={() =>
                 this.setState({
-                  photoIndex: (photoIndex + this.state.photos.length - 1) % this.state.photos.length,
+                  photoIndex: (photoIndex + photos.length - 1) % photos.length,
                 })
               }
               onMoveNextRequest={() =>
                 this.setState({
-                  photoIndex: (photoIndex + 1) % this.state.photos.length,
+                  photoIndex: (photoIndex + 1) % photos.length,
                 })
               }
             />
             <IconButton
-              onClick={()=>{this.props.onPictureDelete(this.props.photos[this.state.photoIndex].id);}}
+              onClick={() => { onPictureDelete(photos[photoIndex].id); }}
               style={{
                 position: 'fixed',
                 top: '2px',
